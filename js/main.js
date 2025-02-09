@@ -1,22 +1,22 @@
 // Datos de ejemplo para los restaurantes
 const restaurants = [
     {
-        name: "La Huerta Verde",
-        type: "Vegetariano",
+        name: "Orosia",
+        type: "Tapas originales, con opciones vegetarianas y veganas",
         savings: 156,
-        icon: "fa-leaf"
+        image: "assets/restaurants/restaurante-orosia.jpg"
     },
     {
-        name: "Sushi Kai",
-        type: "Japonés",
+        name: "Mesón Restaurante Octavio",
+        type: "Carnes a la brasa y cocina tradicional manchega",
         savings: 203,
-        icon: "fa-fish"
+        image: "assets/restaurants/restaurante-octiavia.jpg"
     },
     {
-        name: "El Rincón",
-        type: "Mediterráneo",
+        name: "Asador Restaurante San Huberto",
+        type: "Cochinillo, cordero y pescados al horno de leña",
         savings: 178,
-        icon: "fa-pizza-slice"
+        image: "assets/restaurants/restaurante-san-huberto.jpg"
     }
 ];
 
@@ -33,8 +33,24 @@ function generateRestaurantCards() {
         const card = document.createElement('div');
         card.className = 'restaurant-card';
         card.innerHTML = `
-            <div class="restaurant-icon">
-                <i class="fas ${restaurant.icon}"></i>
+            <div class="restaurant-image" style="
+                width: 100%;
+                height: 250px;
+                overflow: hidden;
+                position: relative;
+            ">
+                <img src="${restaurant.image}" 
+                     alt="${restaurant.name}" 
+                     style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                     ">
             </div>
             <div class="restaurant-content">
                 <h3>${restaurant.name}</h3>
@@ -95,103 +111,43 @@ function initSmoothScroll() {
     });
 }
 
-// Crear burbujas
-function createBubbles() {
-    const bubblesContainer = safeQuerySelector('.bubbles');
-    if (!bubblesContainer) return;
-
-    for (let i = 0; i < 15; i++) {
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
-        
-        const styles = {
-            '--size': `${Math.random() * 4 + 2}`,
-            '--distance': `${Math.random() * 6 + 4}`,
-            '--position': `${Math.random() * 100}`,
-            '--time': `${Math.random() * 2 + 2}`,
-            '--delay': `${Math.random() * 4}`
-        };
-
-        Object.entries(styles).forEach(([property, value]) => {
-            bubble.style.setProperty(property, value);
-        });
-
-        bubblesContainer.appendChild(bubble);
-    }
-}
-
-// Observador de intersección para animaciones
-function initIntersectionObserver() {
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                if (entry.target.classList.contains('metrics-container')) {
-                    animateCounters();
-                }
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    safeQuerySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-}
-
-// Actualizar navegación activa
-function updateActiveNavigation() {
-    const sections = safeQuerySelectorAll('section[id]');
-    const navLinks = safeQuerySelectorAll('.nav-links a');
+// Crear efectos visuales
+function createVisualEffects() {
+    const cards = safeQuerySelectorAll('.restaurant-card');
     
-    const scrollPosition = window.scrollY + 150;
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        const sectionId = section.getAttribute('id');
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('hover');
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('hover');
+        });
     });
 }
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     generateRestaurantCards();
-    createBubbles();
     initSmoothScroll();
-    initIntersectionObserver();
+    createVisualEffects();
 
     // Event Listeners
-    window.addEventListener('scroll', updateActiveNavigation);
-
-    // Inicializar animación del hero
-    setTimeout(() => {
-        const hero = safeQuerySelector('.hero');
-        if (hero) hero.classList.add('animate-in');
-    }, 100);
-
-    // Inicializar efectos de los botones CTA
-    safeQuerySelectorAll('.cta-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.classList.add('loading');
-            
+    safeQuerySelectorAll('.restaurant-card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.add('clicked');
             setTimeout(() => {
-                this.classList.remove('loading');
-            }, 1500);
+                this.classList.remove('clicked');
+            }, 200);
+        });
+    });
+
+    // Asegurar que las imágenes se ajusten correctamente al redimensionar
+    window.addEventListener('resize', () => {
+        const images = safeQuerySelectorAll('.restaurant-image img');
+        images.forEach(img => {
+            img.style.width = '100%';
+            img.style.height = '100%';
         });
     });
 });
