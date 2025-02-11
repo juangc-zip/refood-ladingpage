@@ -65,6 +65,89 @@ function generateRestaurantCards() {
     });
 }
 
+// Crear burbujas
+// Agregar al JavaScript existente, justo antes de la inicialización
+
+// Crear burbujas
+// Función mejorada para crear burbujas
+function createBubbles() {
+    const container = document.getElementById('bubblesContainer');
+    if (!container) {
+        console.log('No se encontró el contenedor de burbujas');
+        return;
+    }
+    
+    const containerWidth = container.offsetWidth;
+    
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        // Random properties
+        const size = Math.random() * 20 + 10; // 10px to 30px
+        const startPositionLeft = Math.random() * (containerWidth - size);
+        const duration = Math.random() * 4000 + 3000; // 3s to 7s
+        
+        // Apply styles
+        bubble.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${startPositionLeft}px;
+            bottom: -${size}px;
+            animation-duration: ${duration}ms;
+        `;
+        
+        container.appendChild(bubble);
+        
+        // Remove bubble after animation
+        setTimeout(() => {
+            if (bubble && bubble.parentNode) {
+                bubble.parentNode.removeChild(bubble);
+            }
+        }, duration);
+    }
+    
+    // Create initial bubbles
+    for(let i = 0; i < 15; i++) {
+        setTimeout(() => createBubble(), Math.random() * 3000);
+    }
+    
+    // Continue creating bubbles
+    return setInterval(createBubble, 300);
+}
+
+// Inicialización mejorada
+function initializeApp() {
+    console.log('Inicializando aplicación...');
+    
+    // Generar tarjetas de restaurantes
+    generateRestaurantCards();
+    
+    // Iniciar burbujas
+    const bubbleInterval = createBubbles();
+    
+    // Iniciar scroll suave
+    initSmoothScroll();
+    
+    // Crear efectos visuales
+    createVisualEffects();
+    
+    // Limpiar intervalo cuando se desmonte
+    window.addEventListener('unload', () => {
+        if (bubbleInterval) {
+            clearInterval(bubbleInterval);
+        }
+    });
+}
+
+// Asegurarnos de que el DOM está cargado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
+
+
 // Animación de contadores
 function animateCounters() {
     const counters = safeQuerySelectorAll('.counter');
@@ -131,6 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
     generateRestaurantCards();
     initSmoothScroll();
     createVisualEffects();
+    const bubbleInterval = createBubbles();
+    
+    // Limpiar el intervalo cuando sea necesario
+    window.addEventListener('unload', () => {
+        clearInterval(bubbleInterval);
+    });createBubbles(); // Agregado el inicio de las burbujas
 
     // Event Listeners
     safeQuerySelectorAll('.restaurant-card').forEach(card => {
