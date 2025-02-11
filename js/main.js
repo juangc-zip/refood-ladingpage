@@ -33,24 +33,8 @@ function generateRestaurantCards() {
         const card = document.createElement('div');
         card.className = 'restaurant-card';
         card.innerHTML = `
-            <div class="restaurant-image" style="
-                width: 100%;
-                height: 250px;
-                overflow: hidden;
-                position: relative;
-            ">
-                <img src="${restaurant.image}" 
-                     alt="${restaurant.name}" 
-                     style="
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        object-position: center;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                     ">
+            <div class="restaurant-image">
+                <img src="${restaurant.image}" alt="${restaurant.name}">
             </div>
             <div class="restaurant-content">
                 <h3>${restaurant.name}</h3>
@@ -65,11 +49,8 @@ function generateRestaurantCards() {
     });
 }
 
-// Crear burbujas
-// Agregar al JavaScript existente, justo antes de la inicialización
 
 // Crear burbujas
-// Función mejorada para crear burbujas
 function createBubbles() {
     const container = document.getElementById('bubblesContainer');
     if (!container) {
@@ -83,12 +64,10 @@ function createBubbles() {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         
-        // Random properties
-        const size = Math.random() * 20 + 10; // 10px to 30px
+        const size = Math.random() * 20 + 10;
         const startPositionLeft = Math.random() * (containerWidth - size);
-        const duration = Math.random() * 4000 + 3000; // 3s to 7s
+        const duration = Math.random() * 4000 + 3000;
         
-        // Apply styles
         bubble.style.cssText = `
             width: ${size}px;
             height: ${size}px;
@@ -99,7 +78,6 @@ function createBubbles() {
         
         container.appendChild(bubble);
         
-        // Remove bubble after animation
         setTimeout(() => {
             if (bubble && bubble.parentNode) {
                 bubble.parentNode.removeChild(bubble);
@@ -107,70 +85,11 @@ function createBubbles() {
         }, duration);
     }
     
-    // Create initial bubbles
     for(let i = 0; i < 15; i++) {
         setTimeout(() => createBubble(), Math.random() * 3000);
     }
     
-    // Continue creating bubbles
     return setInterval(createBubble, 300);
-}
-
-// Inicialización mejorada
-function initializeApp() {
-    console.log('Inicializando aplicación...');
-    
-    // Generar tarjetas de restaurantes
-    generateRestaurantCards();
-    
-    // Iniciar burbujas
-    const bubbleInterval = createBubbles();
-    
-    // Iniciar scroll suave
-    initSmoothScroll();
-    
-    // Crear efectos visuales
-    createVisualEffects();
-    
-    // Limpiar intervalo cuando se desmonte
-    window.addEventListener('unload', () => {
-        if (bubbleInterval) {
-            clearInterval(bubbleInterval);
-        }
-    });
-}
-
-// Asegurarnos de que el DOM está cargado
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
-    initializeApp();
-}
-
-
-// Animación de contadores
-function animateCounters() {
-    const counters = safeQuerySelectorAll('.counter');
-    if (!counters.length) return;
-
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target') || '0');
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const updateCounter = () => {
-            current += step;
-            if (current < target) {
-                counter.textContent = Math.ceil(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target.toLocaleString();
-            }
-        };
-
-        updateCounter();
-    });
 }
 
 // Scroll suave
@@ -209,19 +128,42 @@ function createVisualEffects() {
     });
 }
 
-// Inicialización
-document.addEventListener('DOMContentLoaded', () => {
+// Animación de contadores
+function animateCounters() {
+    const counters = safeQuerySelectorAll('.counter');
+    if (!counters.length) return;
+
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target') || '0');
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target.toLocaleString();
+            }
+        };
+
+        updateCounter();
+    });
+}
+
+// Única función de inicialización
+function initializeApp() {
+    console.log('Inicializando aplicación...');
+    
     generateRestaurantCards();
+    const bubbleInterval = createBubbles();
     initSmoothScroll();
     createVisualEffects();
-    const bubbleInterval = createBubbles();
-    
-    // Limpiar el intervalo cuando sea necesario
-    window.addEventListener('unload', () => {
-        clearInterval(bubbleInterval);
-    });createBubbles(); // Agregado el inicio de las burbujas
+    animateCounters();
 
-    // Event Listeners
+    // Event Listeners para las tarjetas
     safeQuerySelectorAll('.restaurant-card').forEach(card => {
         card.addEventListener('click', function() {
             this.classList.add('clicked');
@@ -231,12 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Asegurar que las imágenes se ajusten correctamente al redimensionar
-    window.addEventListener('resize', () => {
-        const images = safeQuerySelectorAll('.restaurant-image img');
-        images.forEach(img => {
-            img.style.width = '100%';
-            img.style.height = '100%';
-        });
+    // Limpiar intervalo cuando se desmonte
+    window.addEventListener('unload', () => {
+        if (bubbleInterval) {
+            clearInterval(bubbleInterval);
+        }
     });
-});
+}
+
+// Única inicialización cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}

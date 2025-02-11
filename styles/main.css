@@ -1,3 +1,4 @@
+/* main.css */
 :root {
   --primary: #00ADB5;
   --primary-light: #20CED6;
@@ -26,14 +27,7 @@ body {
   padding-top: 80px;
 }
 
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 2rem;
-  position: relative;
-}
-
-/* Navbar */
+/* Estilos del navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -46,6 +40,9 @@ body {
 }
 
 .nav-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -59,6 +56,12 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary);
+  text-decoration: none;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+  color: var(--primary);
 }
 
 .nav-links {
@@ -66,13 +69,72 @@ body {
   gap: 3rem;
   list-style: none;
   align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--neutral);
   font-weight: 500;
+  font-size: 1rem;
   transition: var(--transition);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links .cta-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.nav-links .cta-button:hover {
+  background-color: var(--primary-light);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 173, 181, 0.2);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .nav-container {
+      padding: 0 1rem;
+      height: 60px;
+  }
+
+  .brand {
+      font-size: 1.5rem;
+  }
+
+  .brand-icon {
+      font-size: 1.5rem;
+  }
+
+  .nav-links {
+      display: none; /* Oculta los enlaces en móvil */
+  }
+}
+
+/* Ajuste para el contenido debajo del navbar */
+body {
+  padding-top: 80px; /* Altura del navbar */
+}
+
+@media (max-width: 768px) {
+  body {
+      padding-top: 60px; /* Altura del navbar en móvil */
+  }
 }
 
 /* Hero Section */
@@ -84,7 +146,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-top: -80px; /* Para compensar el navbar */
+  margin-top: -80px;
   padding-top: 80px;
 }
 
@@ -105,16 +167,27 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(34, 40, 49, 0.8),
-    rgba(57, 62, 70, 0.9)
+      135deg,
+      rgba(34, 40, 49, 0.8),
+      rgba(57, 62, 70, 0.9)
   );
   z-index: 2;
 }
 
+.bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
 .hero-content {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   text-align: center;
   color: white;
   padding: 0 20px;
@@ -134,6 +207,7 @@ body {
   line-height: 1.2;
   margin-bottom: 1.5rem;
   color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero p {
@@ -142,20 +216,10 @@ body {
   max-width: 600px;
   margin: 0 auto;
   color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Burbujas */
-.bubbles-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-
+/* Bubble Animation */
 .bubble {
   position: absolute;
   background: rgba(255, 255, 255, 0.2);
@@ -166,29 +230,162 @@ body {
 
 @keyframes float-up {
   0% {
-    transform: translateY(0) scale(0);
-    opacity: 0;
+      transform: translateY(0) scale(0);
+      opacity: 0;
   }
   20% {
-    opacity: 0.5;
-    transform: translateY(-20%) scale(1);
+      opacity: 0.5;
+      transform: translateY(-20%) scale(1);
   }
   80% {
-    opacity: 0.5;
-    transform: translateY(-80%) scale(1);
+      opacity: 0.5;
+      transform: translateY(-80%) scale(1);
   }
   100% {
-    transform: translateY(-100vh) scale(1);
-    opacity: 0;
+      transform: translateY(-100vh) scale(1);
+      opacity: 0;
+  }
+}
+/* Sección Cómo Funciona */
+.how-it-works {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--neutral);
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.step {
+  text-align: center;
+  padding: 2rem;
+  background: var(--secondary-1);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.step-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.step-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.step h3 {
+  font-size: 1.2rem;
+  color: var(--neutral);
+  margin: 0;
+  font-weight: 600;
+}
+
+.step p {
+  font-size: 0.9rem;
+  color: var(--secondary-2);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .how-it-works {
+      padding: 3rem 0;
+  }
+
+  .how-it-works h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+  }
+
+  .steps-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 0 1rem;
+  }
+
+  .step {
+      padding: 1.5rem;
+  }
+
+  .step-icon {
+      width: 56px;
+      height: 56px;
+  }
+
+  .step-icon i {
+      font-size: 1.25rem;
+  }
+
+  .step h3 {
+      font-size: 1.1rem;
+  }
+
+  .step p {
+      font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .steps-container {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+  }
+
+  .step {
+      padding: 1.5rem;
   }
 }
 
 /* Restaurant Cards */
+/* Estilos para la sección de restaurantes */
+.restaurants {
+  padding: 4rem 0;
+  background-color: var(--secondary-1);
+}
+
+.restaurants h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--neutral);
+}
+
 .restaurant-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin: 3rem 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .restaurant-card {
@@ -196,19 +393,20 @@ body {
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: var(--transition);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .restaurant-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .restaurant-image {
   width: 100%;
-  height: 200px;
+  height: 200px; /* Altura reducida */
   position: relative;
   overflow: hidden;
 }
@@ -217,6 +415,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .restaurant-content {
@@ -224,8 +423,81 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.8rem;
 }
+
+.restaurant-content h3 {
+  font-size: 1.2rem; /* Tamaño reducido */
+  font-weight: 600;
+  color: var(--neutral);
+  margin: 0;
+}
+
+.restaurant-type {
+  font-size: 0.9rem; /* Tamaño reducido */
+  color: var(--secondary-2);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.savings {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  font-size: 0.9rem; /* Tamaño reducido */
+  color: var(--primary);
+}
+
+.savings i {
+  font-size: 1rem;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .restaurant-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
+  }
+
+  .restaurant-image {
+      height: 180px;
+  }
+
+  .restaurant-content {
+      padding: 1rem;
+  }
+
+  .restaurant-content h3 {
+      font-size: 1.1rem;
+  }
+
+  .restaurants h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .restaurant-grid {
+      grid-template-columns: repeat(3, 1fr); /* Fuerza 3 columnas en pantallas grandes */
+  }
+}
+
+/* Ajustes para el contenedor principal */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+      padding: 0 1rem;
+  }
+}
+
 
 /* Impact Section */
 .impact {
