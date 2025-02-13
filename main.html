@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>re:food - Salvamos comida, salvamos el planeta</title>
+    <link rel="icon" href="assets/logo/favicon-2.png" type="image/png">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="brand">
+                <i class="fas fa-utensils brand-icon"></i>
+                <span>re:food</span>
+            </div>
+            <ul class="nav-links" >
+                <li><a href="#como-funciona">Cómo funciona</a></li>
+                <li><a href="#restaurantes">Restaurantes</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="#hero-section" class="cta-button">Únete</a></li>
+            </ul>
+            
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero-section" class="hero">
+            <img src="assets/hero/hero-image.png" alt="Hero Background" class="hero-img">
+            <div class="gradient-overlay"></div>
+            <div id="bubblesContainer" class="bubbles-container"></div>
+            <div class="hero-content">
+                <i class="fas fa-leaf hero-icon"></i>
+                <h1>Salvamos comida,<br>salvamos el planeta</h1>
+                <p>Únete a nuestra misión de reducir el desperdicio de alimentos</p>
+                <a href="#hero-section" class="cta-button">Únete</a>
+            </div>
+        </section>
+
+        <section id="como-funciona" class="how-it-works">
+            <div class="container">
+                <h2>Cómo funciona</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Explora</h3>
+                        <p>Encuentra restaurantes cercanos con excedentes</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>Reserva</h3>
+                        <p>Elige y reserva tu pack sorpresa</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Disfruta</h3>
+                        <p>Recoge tu pedido y ayuda al planeta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="restaurantes" class="restaurants">
+            <div class="container">
+                <h2>Restaurantes destacados</h2>
+                <div class="restaurant-grid">
+                    <!-- Las tarjetas se generarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <section id="impacto" class="impact">
+            <div class="container">
+                <h2>Nuestro impacto</h2>
+                <div class="metrics-container">
+                    <div class="metric">
+                        <i class="fas fa-leaf"></i>
+                        <h3 class="counter" data-target="2543">0</h3>
+                        <p>kg CO₂ ahorrados</p>
+                    </div>
+                    <div class="metric">
+                        <i class="fas fa-utensils"></i>
+                        <h3 class="counter" data-target="1890">0</h3>
+                        <p>platos salvados</p>
+                    </div>
+                    <div class="metric">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3 class="counter" data-target="45">0</h3>
+                        <p>restaurantes unidos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>re:food</h4>
+                    <p>Salvando el planeta, un plato a la vez</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>info@refood.com</p>
+                    <p>+34 900 123 456</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

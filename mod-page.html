@@ -1,0 +1,24 @@
+// edit.html (Página de Modificación)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Videojuego</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Modificar Videojuego</h1>
+        <form id="editForm" class="form">
+            <input type="hidden" id="gameId">
+            <input type="text" id="editTitle" class="input" required>
+            <input type="text" id="editGenre" class="input" required>
+            <button type="submit" class="cta-button">Guardar Cambios</button>
+        </form>
+        <button class="cta-button" onclick="window.location.href='list.html'">Volver</button>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
